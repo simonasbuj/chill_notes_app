@@ -29,7 +29,7 @@ npx prisma db push
 ```
 
 
-That's it, tt do be working with any of these:
+That's it, it do be working with any of these:
 ```bash
 npm run dev
 # or
