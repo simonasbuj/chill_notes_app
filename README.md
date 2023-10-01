@@ -22,7 +22,7 @@ services:
       - Z:\\Projects\\docker\\postgres\\database_files:/var/lib/postgresql/data
 ```
 
-Second run prisma command that create table in database and connect them to prisma code in config. 
+Then run prisma commands that create table in database and connect them to prisma code in config. 
 ```
 npx prisma generate
 npx prisma db push
