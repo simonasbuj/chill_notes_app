@@ -102,7 +102,20 @@ export default function Home() {
               className='group relative border-2 border-black rounded text-center hover:font-bold cursor-pointer hover:translate-x-4 transition-transform'
             >
               {note.title} | {note.content}
-              <div onClick={() => deleteNote(Number(note.id))} className='absolute top-1/2 -translate-y-1/2 right-1 hover:scale-150 hover:text-red-600 invisible group-hover:visible'>x</div>
+              <div 
+                onClick={() => deleteNote(Number(note.id))} 
+                className='
+                  absolute top-1/2 
+                  -translate-y-1/2 
+                  right-1 
+                  hover:scale-150 
+                  hover:text-red-600 
+                  opacity-0 
+                  invisible
+                  group-hover:opacity-100 
+                  group-hover:visible
+                  transition-[opacity] 
+                  duration-500'>x</div>
             </div>
           ))}
       </div>
