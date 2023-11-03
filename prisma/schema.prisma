@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Note {
   id BigInt @db.BigInt @id @default(autoincrement())
   title String

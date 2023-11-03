@@ -5,10 +5,7 @@ import { NextRequest, NextResponse } from "next/server"
 export async function POST(request: NextRequest) {
 
     const { title, content } = await request.json()
-
-    // Another Way:
-    // const body = await request.json()
-    // const { title, content } = body
+    console.log(await request.headers)
 
     try {
         await prisma.note.create({
@@ -17,7 +14,7 @@ export async function POST(request: NextRequest) {
                 content
             }
         })
-        return NextResponse.json({ msg: "success" });
+        return NextResponse.json({ msg: "Note Created" });
     } catch (error) {
         return NextResponse.json({ error: 'SB error: ' + error }, { status: 503 })
     }
