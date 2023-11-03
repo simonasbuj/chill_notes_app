@@ -12,26 +12,19 @@ interface FormData {
   id: string
 }
 
-interface Note {
-  id: number,
-  title: string,
-  content: string
-}
-
 export default function Home() {
 
   const [form, setForm] = useState<FormData>({title: '', content: '', id: ''})
-  const [notes, setNotes] =  useState<Note[] | null>(null);
-  const [addedNotes, setAddedNotes] = useState(0)
+  const [notes, setNotes] =  useState<FormData[] | null>(null);
+  const [updatedNotes, setUpdatedNotes] = useState(0)
 
   useEffect(() => {
     fetch('/api/notes')
       .then((res) => res.json())
       .then((data) => {
-
         setNotes(data.slice().reverse())
       })
-  }, [addedNotes])
+  }, [updatedNotes])
 
   async function create(data: FormData) {
     try {
@@ -45,7 +38,7 @@ export default function Home() {
         setForm({title: '', content: '', id: ''})
         res.json().then((res) => { 
           console.log(res.msg) 
-          setAddedNotes(addedNotes + 1)
+          setUpdatedNotes(updatedNotes + 1)
         })
       })
     } catch (error) {
