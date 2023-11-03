@@ -3,8 +3,6 @@
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { use } from "react";
-import { prisma } from '../lib/prisma'
 
 interface FormData {
   title: string
@@ -46,6 +44,24 @@ export default function Home() {
     }
   }
 
+  async function deleteNote(id: number) {
+    try {
+      fetch(`/api/notes/${id}`, {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "DELETE"
+      }).then((res) => {
+        res.json().then((res) => {
+          console.log(res.message)
+          setUpdatedNotes(updatedNotes + 1)
+        })
+      })
+    } catch (error) {
+      console.log("TRIED DELETING BUT GOT ERROR: " + error)
+    }
+  }
+
   return (
     <main>
       <div>
@@ -83,9 +99,10 @@ export default function Home() {
           {notes?.map(note => (
             <div 
               key={note.id}
-              className='border-2 border-black rounded text-center hover:font-bold cursor-pointer hover:translate-x-4 transition-transform'
+              className='group relative border-2 border-black rounded text-center hover:font-bold cursor-pointer hover:translate-x-4 transition-transform'
             >
               {note.title} | {note.content}
+              <div onClick={() => deleteNote(Number(note.id))} className='absolute top-1/2 -translate-y-1/2 right-1 hover:scale-150 hover:text-red-600 invisible group-hover:visible'>x</div>
             </div>
           ))}
       </div>
