@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from "next/server"
 export async function POST(request: NextRequest) {
 
     const { id, title, content } = await request.json()
-    console.log("sb: " + id)
 
     try {
         await prisma.note.upsert({
