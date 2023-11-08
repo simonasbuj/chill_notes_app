@@ -124,7 +124,7 @@ export default function Home() {
             >
               {note.title} | {note.content}
               <div 
-                onClick={(e) => deleteNote(e, Number( note.id))} 
+                onClick={(e) => deleteNote(e, Number(note.id))} 
                 className='
                   absolute 
                   top-1/2 
