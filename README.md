@@ -42,3 +42,4 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+![image](https://github.com/simonasbuj/chill_notes_app/assets/22977894/55ae03f3-ea45-466a-bcb3-850a2b6a691c)
