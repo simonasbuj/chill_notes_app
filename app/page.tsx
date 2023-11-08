@@ -21,7 +21,7 @@ export default function Home() {
       fetch('/api/notes')
       .then((res) => res.json())
       .then((data) => {
-        setNotes(data.slice().reverse())
+        setNotes(data)
       })
       .catch(error => {console.log("Something broke while fethching from API, probably DB is down: " + error)})
     
@@ -55,7 +55,8 @@ export default function Home() {
     }
   }
 
-  async function deleteNote(id: number) {
+  async function deleteNote(e: React.MouseEvent, id: number) {
+    e.stopPropagation() // This make it so that parents' onClick doesnt get triggered
     try {
       fetch(`/api/notes/${id}`, {
         headers: {
@@ -123,7 +124,7 @@ export default function Home() {
             >
               {note.title} | {note.content}
               <div 
-                onClick={() => deleteNote(Number(note.id))} 
+                onClick={(e) => deleteNote(e, Number(note.id))} 
                 className='
                   absolute 
                   top-1/2 
