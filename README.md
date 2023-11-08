@@ -1,5 +1,5 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-It's using prisma ORM and postgres database, but it could work with mysql, mongodb, CockroachDB or MSSQL with a single change.
+It's using prisma ORM and postgres database, but it could work with mysql, or MSSQL with a single change.
 
 ## Getting Started
 First make sure you got postgres running:
