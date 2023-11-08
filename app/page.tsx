@@ -17,11 +17,14 @@ export default function Home() {
   const [updatedNotes, setUpdatedNotes] = useState(0)
 
   useEffect(() => {
-    fetch('/api/notes')
+
+      fetch('/api/notes')
       .then((res) => res.json())
       .then((data) => {
         setNotes(data.slice().reverse())
       })
+      .catch(error => {console.log("Something broke while fethching from API, probably DB is down: " + error)})
+    
   }, [updatedNotes])
 
   async function create(data: FormData) {
@@ -33,10 +36,18 @@ export default function Home() {
         },
         method: 'POST'
       }).then((res) => {
-        setForm({title: '', content: '', id: ''})
+
+        const responseStatus = res.status
+
         res.json().then((res) => { 
-          console.log(res.msg) 
-          setUpdatedNotes(updatedNotes + 1)
+          if (responseStatus == 200){
+            setForm({title: '', content: '', id: ''})
+            setUpdatedNotes(updatedNotes + 1)
+            console.log(res.msg) 
+          } else {
+            console.log(res.error) 
+          }
+          
         })
       })
     } catch (error) {
@@ -64,7 +75,15 @@ export default function Home() {
 
   return (
     <main>
-      <div>
+      <div className='relative'>
+        {form.id !== '' && (
+        <div 
+          onClick={() => setForm({title: '', content: '', id: ''})}
+          className='absolute left-1/2 transform translate-x-36 top-4 hover:cursor-pointer hover:font-bold'
+        >
+          Cancel Edit
+        </div>
+        )}
         <h1 className="text-center font-bold text-2xl m-4">Notes</h1>
         <form 
           onSubmit={ e => { 
@@ -99,14 +118,16 @@ export default function Home() {
           {notes?.map(note => (
             <div 
               key={note.id}
+              onClick={() => setForm({title: note.title, content: note.content, id: note.id})}
               className='group relative border-2 border-black rounded text-center hover:font-bold cursor-pointer hover:translate-x-4 transition-transform'
             >
               {note.title} | {note.content}
               <div 
                 onClick={() => deleteNote(Number(note.id))} 
                 className='
-                  absolute top-1/2 
-                  -translate-y-1/2 
+                  absolute 
+                  top-1/2 
+                  -translate-y-1/2
                   right-1 
                   hover:scale-150 
                   hover:text-red-600 

@@ -4,15 +4,22 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: NextRequest) {
 
-    const { title, content } = await request.json()
-    console.log(await request.headers)
+    const { id, title, content } = await request.json()
+    console.log("sb: " + id)
 
     try {
-        await prisma.note.create({
-            data: {
-                title,
-                content
-            }
+        await prisma.note.upsert({
+            where: {
+                id: Number(id)
+              },
+              update: {
+                title: title,
+                content: content
+              },
+              create: {
+                title: title,
+                content: content,
+              }
         })
         return NextResponse.json({ msg: "Note Created" });
     } catch (error) {
